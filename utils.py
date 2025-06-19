@@ -15,3 +15,12 @@ def standardise_str_values(df: pd.DataFrame) -> pd.DataFrame:
         df[col] = [val.strip().upper() if isinstance(val, str) else val for val in df[col]]
 
     return df
+
+def display_unique_object_values(df):
+    object_cols = df.select_dtypes(include='object').columns
+
+    for col in object_cols:
+        unique_vals = df[col].unique()
+        print(f"\nColumn: {col}")
+        print(f"Unique values ({len(unique_vals)}):")
+        print(unique_vals)
