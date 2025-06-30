@@ -16,7 +16,7 @@ def standardise_str_values(df: pd.DataFrame) -> pd.DataFrame:
 
     return df
 
-def display_unique_object_values(df):
+def display_unique_object_values(df: pd.DataFrame) -> None:
     object_cols = df.select_dtypes(include='object').columns
 
     for col in object_cols:
@@ -24,3 +24,20 @@ def display_unique_object_values(df):
         print(f"\nColumn: {col}")
         print(f"Unique values ({len(unique_vals)}):")
         print(unique_vals)
+
+def display_null_summary(df: pd.DataFrame) -> None:
+    null_counts = df.isnull().sum()
+    null_percentage = (null_counts / len(df)) * 100
+
+    summary = pd.DataFrame({
+        'Null Count': null_counts,
+        'Null Percentage (%)': null_percentage.round(2)
+    })
+
+    summary = summary[summary['Null Count'] > 0].sort_values(by='Null Count', ascending=False)
+    
+    if summary.empty:
+        print("No missing values found.")
+    else:
+        print("Null Value Summary:")
+        print(summary)
