@@ -1,6 +1,4 @@
-import logging.config
 import requests
-import json
 import time
 import logging
 from typing import Optional, Literal, Dict, Any, List
